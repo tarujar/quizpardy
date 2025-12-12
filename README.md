@@ -4,7 +4,7 @@ Locally run React application to host a Jeopardy style trivia quiz event
 
 ## Running the Project
 
-1. **Install dependencies** (only once):
+1. **Install dependencies**:
    ```sh
    npm install
    ```
@@ -36,15 +36,16 @@ To add or edit quiz questions, open `/public/questions.csv` in a spreadsheet edi
 
 **Example row:**
 ```
-id,category,value,question,answer,mediaUrl
-1,AI,100,Mikä on tunnettu koneoppimisen kirjasto Pythonille?,TensorFlow,
-2,Web,200,Mikä HTML-elementti käytetään linkin luomiseen?,a,
+id;category;value;question;answer;mediaUrl
+1;AI;100;Mikä on tunnettu koneoppimisen kirjasto Pythonille?;TensorFlow;mediafile.png
+2;Web;200;Mikä HTML-elementti käytetään linkin luomiseen?;Some Answer // Next Row;
 ```
 
 - Categories and values must match across all questions for the board to render correctly.
 - If you add a new category, supply a full set of values for it.
-- For media, use supported formats listed in `src/mediaTypes.ts`.
-- Save the file as UTF-8 CSV.
+- For media, use supported formats listed in `src/mediaTypes.ts` add more if needed
+- Save the file as UTF-8 CSV 
+- You can define a CSV parser character in `/src/constants.ts`
 - After editing, restart the app or use the in-app settings panel to reload questions.
 
 ## Configuration via constants
@@ -53,5 +54,6 @@ You can edit `/src/constants.ts` to change game settings such as:
 - Maximum player count
 - Default player count
 - Questions CSV file path (`QUESTIONS_CSV_PATH`)
+- CSV parser character
 
 This makes it easy to switch question files, adjust player limits, or add new configuration options.

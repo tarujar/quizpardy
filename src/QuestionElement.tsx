@@ -1,41 +1,69 @@
 import React from 'react';
 import type { Question } from './questions';
-import { AUDIO_EXTENSIONS, VIDEO_EXTENSIONS } from './mediaTypes';
+import { AUDIO_EXTENSIONS, VIDEO_EXTENSIONS, IMAGE_EXTENSIONS } from './mediaTypes';
 
 interface QuestionElementProps {
   question: Question;
 }
-const isAudioExtension = (e: string | undefined): boolean =>{
-    return !!e && AUDIO_EXTENSIONS.includes(e as typeof AUDIO_EXTENSIONS[number]);
+
+type MediaType = 'audio' | 'video' | 'image' | null;
+
+const getMediaType = (mediaUrl: string | undefined): MediaType => {
+  if (!mediaUrl) return null;
+  
+  const ext = mediaUrl.split('.').pop()?.toLowerCase();
+  if (!ext) return null;
+  
+  if (AUDIO_EXTENSIONS.includes(ext as typeof AUDIO_EXTENSIONS[number])) {
+    return 'audio';
   }
-const isVideoExtension = (e: string | undefined): boolean =>{
-    return !!e && VIDEO_EXTENSIONS.includes(e as typeof VIDEO_EXTENSIONS[number]);
+  if (VIDEO_EXTENSIONS.includes(ext as typeof VIDEO_EXTENSIONS[number])) {
+    return 'video';
+  }
+  if (IMAGE_EXTENSIONS.includes(ext as typeof IMAGE_EXTENSIONS[number])) {
+    return 'image';
   }
   
-export function QuestionElement({ question }: Readonly<QuestionElementProps>) {
-  if (!question) return null;
-  const ext = question.mediaUrl?.split('.').pop()?.toLowerCase();
+  return null;
+};
 
-  let mediaElement: React.ReactNode = null;
-  if (question.mediaUrl) {
-    if (isAudioExtension(ext)) {
-      mediaElement = (
+const getQuestionMediaElement = (mediaType: MediaType, mediaUrl: string | undefined): React.ReactNode => {
+  switch (mediaType) {
+    case 'audio':
+      return (
         <div style={{ marginBottom: '1rem' }}>
-            audio url : {question.mediaUrl}
-          <audio controls src={question.mediaUrl} style={{ width: '100%' }} />
+          <audio controls src={mediaUrl} style={{ width: '100%' }} />
         </div>
       );
-    } else if (isVideoExtension(ext)) {
-      mediaElement = (
+    case 'video':
+      return (
         <div style={{ marginBottom: '1rem' }}>
-          <video controls src={question.mediaUrl} style={{ width: '100%' }}>
+          <video controls src={mediaUrl} style={{ width: '100%' }}>
             <track kind="captions" />
             Your browser does not support the video element.
           </video>
         </div>
       );
-    }
+    case 'image':
+      return (
+        <div style={{ marginBottom: '1rem' }}>
+          <img 
+            src={mediaUrl} 
+            alt="Question media" 
+            style={{ maxWidth: '100%', maxHeight: '400px', objectFit: 'contain', borderRadius: '8px' }} 
+          />
+        </div>
+      );
+    case null:
+      return null;
   }
+};
+
+export function QuestionElement({ question }: Readonly<QuestionElementProps>) {
+  if (!question) return null;
+  
+  const mediaType = getMediaType(question.mediaUrl);
+  const mediaElement = getQuestionMediaElement(mediaType, question.mediaUrl);
   const questionWithLineBreaks = question.question.split("//");
 
   return (

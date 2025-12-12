@@ -148,7 +148,7 @@ export function GamePlay({
             });
             setSelectedPlayerId(null);
             setShowAnswer(false);
-          }} style={styles.goldButton}>
+          }} style={styles.smallButton()}>
             Back to Board
           </button>
         </div>

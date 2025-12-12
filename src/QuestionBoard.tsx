@@ -104,8 +104,7 @@ export function QuestionBoard({
                       cursor: used ? 'not-allowed' : 'pointer',
                       textDecoration: used ? 'line-through' : 'none',
                     }}
-                    onClick={() => !used && onQuestionSelect(q)}
-                    disabled={used}
+                    onClick={() =>  onQuestionSelect(q)}
                   >
                     {price}
                   </button>

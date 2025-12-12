@@ -1,5 +1,5 @@
 import type { Question } from './questions';
-import { QUESTIONS_CSV_PATH } from './constants';
+import { CSV_PARSER_CHARACTER, QUESTIONS_CSV_PATH } from './constants';
 
 // Simple CSV parser that works in the browser
 export function parseCSV(csvText: string): Question[] {
@@ -35,7 +35,7 @@ function parseCSVLine(line: string): string[] {
   for (const char of line) {
     if (char === '"') {
       inQuotes = !inQuotes;
-    } else if (char === ',' && !inQuotes) {
+    } else if (char === CSV_PARSER_CHARACTER && !inQuotes) {
       result.push(current);
       current = '';
     } else {
