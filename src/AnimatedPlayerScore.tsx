@@ -17,7 +17,7 @@ export function AnimatedPlayerScore({ player, scoreChange }: Readonly<AnimatedPl
       setAnimationValue(scoreChange);
       setShowAnimation(true);
       setHighlightCard(true);
-      
+
       // Hide animation after 2 seconds
       const timer = setTimeout(() => {
         setShowAnimation(false);
@@ -42,7 +42,7 @@ export function AnimatedPlayerScore({ player, scoreChange }: Readonly<AnimatedPl
       <div style={{ fontWeight: 'bold', fontSize: '1.1rem' }}>{player.name}</div>
       <div style={{ fontSize: '1.2rem', color: '#ffd700', position: 'relative' }}>
         Score: {player.score}
-        
+
         {/* Animated score change */}
         {showAnimation && (
           <div
@@ -55,7 +55,7 @@ export function AnimatedPlayerScore({ player, scoreChange }: Readonly<AnimatedPl
           </div>
         )}
       </div>
-      
+
       {/* CSS animation styles */}
       <style>{`
         @keyframes scoreChange {
