@@ -25,7 +25,6 @@ interface GamePlayProps {
   setShowAnswer: React.Dispatch<React.SetStateAction<boolean>>;
   board: { [cat: string]: Question[] };
   categories: string[];
-  prices: number[];
 }
 
 export function GamePlay({
@@ -41,7 +40,6 @@ export function GamePlay({
   setShowAnswer,
   board,
   categories,
-  prices,
 }: Readonly<GamePlayProps>) {
   // Track score changes for animations
   const [scoreChanges, setScoreChanges] = useState<{ [playerId: number]: number }>({});
@@ -80,7 +78,6 @@ export function GamePlay({
         <QuestionBoard
           board={board}
           categories={categories}
-          prices={prices}
           usedQuestions={usedQuestions}
           onQuestionSelect={setSelectedQuestion}
         />

@@ -114,7 +114,6 @@ function App() {
       setShowAnswer={setShowAnswer}
       board={board}
       categories={currentCategories}
-      prices={prices}
     />
     </>
   );

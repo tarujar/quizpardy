@@ -1,11 +1,11 @@
 import React from 'react';
 import type { Question } from './questions';
 import { DataErrorDisplay } from './DataErrorDisplay';
+import { prices } from './questions';
 
 interface QuestionBoardProps {
   board: { [cat: string]: Question[] };
   categories: string[];
-  prices: number[];
   usedQuestions: number[];
   onQuestionSelect: (question: Question) => void;
 }
@@ -13,7 +13,6 @@ interface QuestionBoardProps {
 export function QuestionBoard({
   board,
   categories,
-  prices,
   usedQuestions,
   onQuestionSelect,
 }: Readonly<QuestionBoardProps>) {
@@ -106,7 +105,7 @@ export function QuestionBoard({
                     }}
                     onClick={() =>  onQuestionSelect(q)}
                   >
-                    {price}
+                    {q.value}
                   </button>
                 </td>
               );
